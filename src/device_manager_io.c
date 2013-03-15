@@ -97,7 +97,7 @@ static int sys_read_buf(char *file, char *buf)
 		return -ENOENT;
 	}
 
-	r = read(fd, buf, BUFF_MAX-1);
+	r = read(fd, buf, BUFF_MAX);
 	if ((r >= 0) && (r < BUFF_MAX))
 		buf[r] = '\0';
 	else {
