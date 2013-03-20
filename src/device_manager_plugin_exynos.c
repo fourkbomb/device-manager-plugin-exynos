@@ -97,60 +97,12 @@ struct display_info
 int lcd_index;
 struct display_info disp_info[DISP_MAX];
 
-int OEM_sys_get_backlight_brightness_by_lux(unsigned int lux, enum lux_status status)
+/* This function is not supported */
+int OEM_sys_get_backlight_brightness_by_lux(unsigned int lux, int *value)
 {
-	static int brightness = -1;
+	/* TODO */
 
-	if (status == no_change) {
-		if (brightness == -1)
-			status = increment;
-		else
-			return brightness;
-	}
-	if (status == decrement) {
-		switch (lux) {
-		case 10000 ... 0xffffffff:
-			brightness =  100;
-			break;
-		case 1000 ... 9999:
-			brightness =  80;
-			break;
-		case 75 ... 999:
-			brightness =  60;
-			break;
-		case 7 ... 74:
-			brightness =  40;
-			break;
-		case 0 ... 6:
-			brightness =  1;
-			break;
-		default:
-			return -1;
-		}
-	} else if (status == increment) {
-		switch (lux) {
-		case 15001 ... 0xffffffff:
-			brightness =  100;
-			break;
-		case 1501 ... 15000:
-			brightness =  80;
-			break;
-		case 151 ...  1500:
-			brightness =  60;
-			break;
-		case 16 ... 150:
-			brightness =  40;
-			break;
-		case 0 ... 15:
-			brightness =  1;
-			break;
-		default:
-			return -1;
-		}
-	} else
-		return -1;
-
-	return brightness;
+	return 0;
 }
 
 static int OEM_sys_display_info(struct display_info *disp_info)

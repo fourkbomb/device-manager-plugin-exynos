@@ -159,7 +159,7 @@ typedef struct {
 	int	(*OEM_sys_get_cpufreq_scaling_min_freq) (int *value);
 	int	(*OEM_sys_set_cpufreq_scaling_min_freq) (int value);
 
-	int     (*OEM_sys_get_backlight_brightness_by_lux) (int lux, int status);
+	int     (*OEM_sys_get_backlight_brightness_by_lux) (int lux, int *value);
 
 } OEM_sys_devman_plugin_interface;
 
