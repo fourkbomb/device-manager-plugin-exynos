@@ -1,0 +1,7 @@
+* Tue Feb 04 2014 Jacek Bukarewicz <j.bukarewicz@samsung.com> submit/tizen_2.2/20131107.055930@663d51a
+- Add LICENSE file and copy it to /usr/share/license/
+- Fix OEM_sys_get_backlight_brightness_by_lux() parameter
+- merge with master
+- Tizen 2.1 base
+- Initial empty repository
+
