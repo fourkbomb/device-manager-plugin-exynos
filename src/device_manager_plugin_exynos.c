@@ -205,11 +205,18 @@ int OEM_sys_get_backlight_min_brightness(int index, int *value)
 
 	snprintf(path, MAX_NAME, BACKLIGHT_MIN_BRIGHTNESS_PATH, disp_info[index].bl_name);
 	ret = sys_get_int(path, value);
+
+        /* s6e8ax0 driver doesn't support min_brightness node - return default/empirical value */
+        if (ret < 0) {
+                *value = 0;
+                devmgr_log("Can't read min_brightness node[%s] default value[%d]", path, *value);
+                return 0;
+        }
+
 	devmgr_log("path[%s]value[%d]", path, *value);
 
 	return ret;
 }
-
 
 int OEM_sys_get_backlight_brightness(int index, int *value, int power_saving)
 {
@@ -248,7 +255,7 @@ int OEM_sys_get_backlight_brightness(int index, int *value, int power_saving)
 	return ret;
 }
 
-
+/* FIXME: s6e8ax0 driver doesn't support dimming */
 int OEM_sys_set_backlight_dimming(int index, int value)
 {
 	int ret = -1;
@@ -643,6 +650,7 @@ GENERATE_ACCESSORS_INT_R(battery_charge_full, BATTERY_CHARGE_FULL_PATH)
 GENERATE_ACCESSORS_INT_R(battery_charge_now, BATTERY_CHARGE_NOW_PATH)
 GENERATE_ACCESSORS_INT_R(battery_present, BATTERY_PRESENT_PATH)
 
+/* FIXME: max170xx_battery driver doesn't support capacity_raw */
 int OEM_sys_get_battery_capacity_raw(int *value)
 {
 	int ret;
