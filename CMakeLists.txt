@@ -16,7 +16,7 @@ SET(CMAKE_C_FLAGS_DEBUG "-O0 -g")
 SET(CMAKE_C_FLAGS_RELEASE "-O2")
 
 INCLUDE(FindPkgConfig)
-pkg_check_modules(pkgs REQUIRED devman_plugin)
+pkg_check_modules(pkgs REQUIRED devman_plugin hwcommon)
 
 FOREACH(flag ${pkgs_CFLAGS})
 	SET(EXTRA_CFLAGS "${EXTRA_CFLAGS} ${flag}")
@@ -31,3 +31,7 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${pkgs_LDFLAGS})
 SET(PREFIX ${CMAKE_INSTALL_PREFIX})
 
 INSTALL(TARGETS ${PROJECT_NAME} DESTINATION lib COMPONENT RuntimeLibraries)
+
+ADD_LIBRARY(backlight MODULE hw/backlight.c hw/shared.c)
+SET_TARGET_PROPERTIES(backlight PROPERTIES PREFIX "")
+INSTALL(TARGETS backlight DESTINATION lib/hw COMPONENT RuntimeLibraries)
